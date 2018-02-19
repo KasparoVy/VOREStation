@@ -136,6 +136,19 @@
 	construction_options = list("One Direction", "Full Window", "Windoor")
 
 /*
+ * Polarized glass sheets
+ */
+/obj/item/stack/material/glass/reinforced/polarized
+	name = "electrochromic glass"
+	singular_name = "electrochromic glass sheet"
+	icon_state = "sheet-rglass"
+	color = "#222222"
+	default_type = "electrochromic glass"
+	created_window = /obj/structure/window/reinforced/polarized
+	is_reinforced = 1
+	construction_options = list("One Direction", "Full Window")
+
+/*
  * Phoron Glass sheets
  */
 /obj/item/stack/material/glass/phoronglass

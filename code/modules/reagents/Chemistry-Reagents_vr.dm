@@ -44,3 +44,20 @@
 			if(nif.stat == NIF_TEMPFAIL)
 				nif.stat = NIF_INSTALLING
 			nif.durability = min(nif.durability + removed, initial(nif.durability))
+
+
+// Chromogen - For converting rglass to polarized glass
+/datum/reagent/chromogen
+	name = "Chromogen"
+	id = "chromogen"
+	description = "A compound with dissolved micro-conducting fibers that can add electrochromatic properties to glass."
+	taste_description = "metallic"
+	reagent_state = LIQUID
+	color = "#222266"
+
+/datum/reagent/silicate/touch_obj(var/obj/O)
+	if(istype(O, /obj/structure/window))
+		var/obj/structure/window/W = O
+		W.apply_silicate(volume)
+		remove_self(volume)
+	return

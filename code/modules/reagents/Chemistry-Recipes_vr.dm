@@ -97,6 +97,16 @@
 	required_reagents = list("antifreeze" = 1, "gargleblaster" = 1, "syndicatebomb" =1)
 	result_amount = 3
 
+///////////////////////////////////////////////////////////////////////////////////
+/// Utility Chemicals
+
+/datum/chemical_reaction/chromogen
+	name = "Chromogen"
+	id = "chromogen"
+	result = "chromogen"
+	required_reagents = list("silicate" = 1, "copper" = 1, "carbon" = 1)
+	result_amount = 3
+
 ///////////////////////////////
 //SLIME CORES BELOW HERE///////
 ///////////////////////////////

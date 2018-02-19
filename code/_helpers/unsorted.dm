@@ -1068,6 +1068,29 @@ var/global/list/common_tools = list(
 		return 1
 	return 0
 
+/client/verb/leshana_debug_machine_layers()
+	set name = "Check Machine Layers"
+	set category = "OOC"
+	var/list/results = list()
+	var/list/bylayer = list()
+	for(var/obj/machinery/M in world)
+		if(M.layer != OBJ_LAYER && M.layer != ABOVE_WINDOW_LAYER)
+			results += "Layer [M.layer]\t[M] ([M.type]) @ [M.x],[M.y],[M.z]"
+			LAZYINITLIST(bylayer["[M.layer]"])
+			var/list/layerlist = bylayer["[M.layer]"]
+			if(isnum(layerlist[M.type]))
+				layerlist[M.type] += 1
+			else
+				layerlist[M.type] = 1
+
+	src << "Found [results.len] machines on odd layers"
+	for (var/L in bylayer)
+		src << "### LAYER [L] ###"
+		for (var/T in bylayer[L])
+			src << "\t[T] ([bylayer[L][T]])"
+	src << "=================================================="
+	src << results.Join("\r\n")
+
 /proc/iswelder(O)
 	if(istype(O, /obj/item/weapon/weldingtool))
 		return 1
