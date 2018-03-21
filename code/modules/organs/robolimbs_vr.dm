@@ -62,6 +62,14 @@
 	unavailable_to_build = 1
 	parts = list(BP_HEAD)
 
+/datum/robolimb/wardtakahashi_vulp
+	company = "Ward-Takahashi - Vulpkanin"
+	desc = "This limb features sleek black and white polymers. It is anatomically similar to that of a Vulpkanin."
+	icon = 'icons/mob/human_races/cyberlimbs/wardtakahashi/wardtakahashi_vulp.dmi'
+	unavailable_to_build = 1
+	includes_tail = 1
+	suggested_species = "Vulpkanin"
+
 /datum/robolimb/eggnerdltdred
 	company = "Eggnerd Prototyping Ltd. (Red)"
 	desc = "A slightly more refined limb variant from Eggnerd Prototyping. Its got red plating instead of orange."
@@ -76,7 +84,7 @@
 	icon_state = "verkdisk"
 
 
-//Darkside Incorperated synthetic augmentation list! Many current most used fuzzy and notsofuzzy races made into synths here.
+//Darkside Incorperated (INCORPORATED*) synthetic augmentation list! Many current most used fuzzy and notsofuzzy races made into synths here.
 
 /datum/robolimb/dsi_tajaran
 	company = "DSI - Tajaran"

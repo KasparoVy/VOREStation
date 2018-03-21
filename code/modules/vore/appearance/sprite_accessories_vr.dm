@@ -263,6 +263,52 @@
 	color_blend_mode = ICON_MULTIPLY
 	extra_overlay = "vulp-inner"
 
+/datum/sprite_accessory/ears/vulp_alt
+	name = "vulpkanin alt., dual-color"
+	desc = ""
+	icon_state = "vulp_alt"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+	extra_overlay = "vulp-inner"
+
+/datum/sprite_accessory/ears/vulp_short
+	name = "vulpkanin short"
+	desc = ""
+	icon_state = "vulp_terrier"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+
+/datum/sprite_accessory/ears/vulp_short_dc
+	name = "vulpkanin short, dual-color"
+	desc = ""
+	icon_state = "vulp_terrier"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+	extra_overlay = "vulp_terrier-inner"
+
+/datum/sprite_accessory/ears/vulp_short_patch
+	name = "vulpkanin short, patch"
+	desc = ""
+	icon_state = "vulp_terrier_patch"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+
+/datum/sprite_accessory/ears/vulp_short_patch_dc
+	name = "vulpkanin short, patch, dual-color"
+	desc = ""
+	icon_state = "vulp_terrier_patch"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+	extra_overlay = "vulp_terrier-inner"
+
+/datum/sprite_accessory/ears/vulp_jackal
+	name = "vulpkanin thin ears"
+	desc = ""
+	icon_state = "vulp_jackal"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+	extra_overlay = "vulp_jackal-inner"
+
 /datum/sprite_accessory/ears/bunny_floppy
 	name = "floopy bunny ears (colorable)"
 	desc = ""
@@ -1086,11 +1132,25 @@
 	do_colouration = 1
 	color_blend_mode = ICON_MULTIPLY
 
-
 /datum/sprite_accessory/tail/zenghu_taj
 	name = "Zeng-Hu Tajaran Synth tail"
 	desc = ""
 	icon_state = "zenghu_taj"
+
+/datum/sprite_accessory/tail/wardtakahashi
+	name = "Ward-Takahashi Synth tail"
+	desc = ""
+	icon_state = "wardtakahashi_vulp"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+
+/datum/sprite_accessory/tail/wardtakahashi_dc
+	name = "Ward-Takahashi Synth tail (dual-color)"
+	desc = ""
+	icon_state = "wardtakahashi_vulp_dc"
+	do_colouration = 1
+	color_blend_mode = ICON_MULTIPLY
+	extra_overlay = "wardtakahashi_vulp_dc_mark"
 
 /*
 ////////////////////////////

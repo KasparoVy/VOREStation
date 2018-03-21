@@ -565,6 +565,12 @@
 		color_blend_mode = ICON_MULTIPLY
 		body_parts = list(BP_HEAD)
 
+	vulp_face_alt
+		name = "face alt. (Vulp)"
+		icon_state = "vulp_facealt"
+		color_blend_mode = ICON_MULTIPLY
+		body_parts = list(BP_HEAD)
+
 	vulp_earsface
 		name = "ears and face (Vulp)"
 		icon_state = "vulp_earsface"
@@ -574,6 +580,18 @@
 	vulp_all
 		name = "all head highlights (Vulp)"
 		icon_state = "vulp_all"
+		color_blend_mode = ICON_MULTIPLY
+		body_parts = list(BP_HEAD)
+
+	vulp_terrier
+		name = "head patches (Vulp)"
+		icon_state = "vulp_terrier"
+		color_blend_mode = ICON_MULTIPLY
+		body_parts = list(BP_HEAD)
+
+	short_nose
+		name = "short nose (Vulp)"
+		icon_state = "terriernose"
 		color_blend_mode = ICON_MULTIPLY
 		body_parts = list(BP_HEAD)
 

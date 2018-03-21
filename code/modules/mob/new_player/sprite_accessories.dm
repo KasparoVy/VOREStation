@@ -1289,6 +1289,12 @@
 		body_parts = list(BP_HEAD)
 		species_allowed = list(SPECIES_TAJ)
 
+	taj_altnose
+		name = "Alt. Nose Color (Taj)"
+		icon_state = "taj_altnose"
+		body_parts = list(BP_HEAD)
+		species_allowed = list(SPECIES_TAJ)
+
 	taj_crest
 		name = "Chest Fur Crest (Taj)"
 		icon_state = "taj_crest"
