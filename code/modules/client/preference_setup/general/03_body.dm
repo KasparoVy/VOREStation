@@ -126,7 +126,11 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 		var/status = pref.organ_data[name]
 		var/obj/item/organ/external/O = character.organs_by_name[name]
 		if(O)
-			if(status == "amputated")
+			if(status == "reskinned")
+				if(pref.rlimb_data[name])
+					var/species_override = pref.species == "Custom Species" && pref.custom_base ? pref.custom_base : null //VOREStation edit - Need an override for the species check in reskin() otherwise it'll always think the mob is Human when custom_base is set due to the copy_to_mob category order.
+					O.reskin(pref.rlimb_data[name], species_override)
+			else if(status == "amputated")
 				O.remove_rejuv()
 			else if(status == "cyborg")
 				if(pref.rlimb_data[name])
@@ -222,7 +226,15 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 			if(O_KIDNEYS)
 				organ_name = "kidneys"
 
-		if(status == "cyborg")
+		if(status == "reskinned")
+			++ind
+			if(ind > 1)
+				. += ", "
+			var/datum/skin/S
+			if(pref.rlimb_data[name] && all_skins[pref.rlimb_data[name]])
+				S = all_skins[pref.rlimb_data[name]]
+			. += "\t[S.name] [organ_name] reskin"
+		else if(status == "cyborg")
 			++ind
 			if(ind > 1)
 				. += ", "
@@ -514,14 +526,12 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 
 	else if(href_list["limbs"])
 
-		var/list/limb_selection_list = list("Left Leg","Right Leg","Left Arm","Right Arm","Left Foot","Right Foot","Left Hand","Right Hand","Full Body")
+		var/list/limb_selection_list = list("Left Leg","Right Leg","Left Arm","Right Arm","Left Foot","Right Foot","Left Hand","Right Hand","Full Body","Head")
 
 		// Full prosthetic bodies without a brain are borderline unkillable so make sure they have a brain to remove/destroy.
 		var/datum/species/current_species = all_species[pref.species]
 		if(!current_species.has_organ["brain"])
 			limb_selection_list -= "Full Body"
-		else if(pref.organ_data[BP_TORSO] == "cyborg")
-			limb_selection_list |= "Head"
 
 		var/organ_tag = input(user, "Which limb do you want to change?") as null|anything in limb_selection_list
 
@@ -532,7 +542,7 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 		var/third_limb = null  // if you try to unchange the hand, the arm should also change
 
 		// Do not let them amputate their entire body, ty.
-		var/list/choice_options = list("Normal","Amputated","Prosthesis")
+		var/list/choice_options = list("Normal","Reskin","Amputated","Prosthesis")
 		switch(organ_tag)
 			if("Left Leg")
 				limb =        BP_L_LEG
@@ -560,7 +570,12 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 				third_limb =  BP_R_ARM
 			if("Head")
 				limb =        BP_HEAD
-				choice_options = list("Prosthesis")
+				if(pref.organ_data[BP_TORSO] == "cyborg")
+					choice_options = list("Prosthesis")
+				else if(pref.organ_data[BP_HEAD] == "reskinned")
+					choice_options = list("Normal","Reskin")
+				else
+					choice_options = list("Reskin")
 			if("Full Body")
 				limb =        BP_TORSO
 				third_limb =  BP_GROIN
@@ -580,6 +595,35 @@ var/global/list/valid_bloodtypes = list("A+", "A-", "B+", "B-", "AB+", "AB-", "O
 				if(third_limb)
 					pref.organ_data[third_limb] = null
 					pref.rlimb_data[third_limb] = null
+
+			if("Reskin")
+				var/list/usable_skins = list()
+				for(var/skin in chargen_skins)
+					var/datum/skin/M = chargen_skins[skin]
+					if(!(limb in M.parts))
+						continue
+					if(!(pref.species in M.species_allowed) && (!pref.custom_base || !(pref.custom_base in M.species_allowed))) //VOREStation Edit - Custom species base species allowance.
+						continue
+					//VOREStation Add - Reskin whitelisting.
+					if(M.whitelisted_to && !(user.ckey in M.whitelisted_to))
+						continue
+					//VOREStation Add End
+					usable_skins[skin] = M
+				if(!usable_skins.len)
+					return
+				var/choice = input(user, "Which skin would you like to use for this limb?") as null|anything in usable_skins
+				if(!choice)
+					return
+
+				if(limb == BP_TORSO)
+					for(var/other_limb in BP_ALL - BP_TORSO)
+						pref.rlimb_data[limb] = choice
+						pref.organ_data[limb] = "reskinned"
+				pref.rlimb_data[limb] = choice
+				pref.organ_data[limb] = "reskinned"
+				if(third_limb)
+					pref.rlimb_data[second_limb] = choice
+					pref.organ_data[second_limb] = "reskinned"
 
 			if("Amputated")
 				if(limb == BP_TORSO)

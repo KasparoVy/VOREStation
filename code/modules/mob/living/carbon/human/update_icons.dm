@@ -267,9 +267,11 @@ var/global/list/damage_icon_parts = list() //see UpdateDamageIcon()
 				icon_key += "2[part.model ? "-[part.model]": ""]"
 				robolimb_count++
 				if((part.robotic == ORGAN_ROBOT || part.robotic == ORGAN_LIFELIKE) && (part.organ_tag == BP_HEAD || part.organ_tag == BP_TORSO || part.organ_tag == BP_GROIN)) //VOREStation Edit - Not for nanoform parts
-					robobody_count ++
+					robobody_count++
 			else if(part.status & ORGAN_DEAD)
 				icon_key += "3"
+			else if(part.skin)
+				icon_key += "4[part.skin ? "-[part.skin]": ""]"
 			else
 				icon_key += "1"
 

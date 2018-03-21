@@ -31,6 +31,7 @@
 	var/body_part = null               // Part flag
 	var/icon_position = 0              // Used in mob overlay layering calculations.
 	var/model                          // Used when caching robolimb icons.
+	var/skin                           // Used when caching a limb's reskin icons.
 	var/force_icon                     // Used to force override of species-specific limb icons (for prosthetics).
 	var/icon/mob_icon                  // Cached icon for use in mob overlays.
 	var/gendered_icon = 0              // Whether or not the icon state appends a gender.
@@ -1075,6 +1076,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 			applied_pressure = null
 		splinted = null
 		return 1
+	return 0
+
+/obj/item/organ/external/proc/reskin(var/new_skin, var/species_override, var/delay_icon_update)
+	if(new_skin)
+		var/datum/skin/S = all_skins[new_skin]
+		if(S && ((species_override && (species_override in S.species_allowed)) || (species && (species.name in S.species_allowed))))
+			S.apply(src)
+			if(!delay_icon_update)
+				get_icon()
+			return 1
 	return 0
 
 /obj/item/organ/external/robotize(var/company, var/skip_prosthetics = 0, var/keep_organs = 0)

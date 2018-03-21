@@ -116,12 +116,15 @@ var/global/datum/global_init/init = new ()
 	// Create floor types.
 	populate_flooring_types()
 
+	// Create skins for chargen.
+	populate_skin_list()
+
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
 
 	//Must be done now, otherwise ZAS zones and lighting overlays need to be recreated.
 	createRandomZlevel()
-	
+
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
 

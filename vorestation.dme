@@ -2265,6 +2265,8 @@
 #include "code\modules\organs\organ_icon.dm"
 #include "code\modules\organs\organ_stump.dm"
 #include "code\modules\organs\pain.dm"
+#include "code\modules\organs\reskins.dm"
+#include "code\modules\organs\reskins_vr.dm"
 #include "code\modules\organs\robolimbs.dm"
 #include "code\modules\organs\robolimbs_vr.dm"
 #include "code\modules\organs\wound.dm"

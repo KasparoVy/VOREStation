@@ -123,6 +123,8 @@ var/global/list/limb_icon_cache = list()
 		gender = "m"
 
 	icon_cache_key = "[icon_name]_[species ? species.get_bodytype() : SPECIES_HUMAN]" //VOREStation Edit
+	if(skin && !model)
+		icon_cache_key += "_skin_[skin]"
 
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name][gendered_icon ? "_[gender]" : ""]")
