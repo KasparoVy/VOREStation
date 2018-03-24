@@ -39,6 +39,9 @@
 		return 1
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return 1
+	var/mob/M = mover
+	if(istype(M) && M.flying)
+		return 1
 	if(get_dir(loc, target) == dir)
 		return !density
 	else

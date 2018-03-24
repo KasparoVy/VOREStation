@@ -7,6 +7,8 @@
 	M.stop_flying()
 
 /obj/structure/table/stumble_into(mob/living/M)
+	if(M.flying && !(M.confused || M.is_blind())) //If you're not flying, or you're flying confused/blind, take the tumble.
+		return
 	var/obj/occupied = turf_is_crowded()
 	if(occupied)
 		return ..()
@@ -69,6 +71,8 @@
 	M.stop_flying()
 
 /obj/structure/railing/stumble_into(mob/living/M)
+	if(M.flying && !(M.confused || M.is_blind())) //If you're not flying, or you're flying confused/blind, take the tumble.
+		return
 	var/obj/occupied = turf_is_crowded()
 	if(occupied)
 		return ..()
