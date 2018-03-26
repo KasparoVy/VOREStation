@@ -752,6 +752,8 @@
 	if(C.nutrition > 1000 && !C.flying)
 		to_chat(C, "<span class='notice'>You have eaten too much to fly! You need to lose some nutrition.</span>")
 		return
+	if(C.weight > 325 && !C.flying) //Referencing the 'very fat' range from examine_weight() in examine_vr.dm.
+		to_chat(C, "<span class='notice'>You are too heavy to fly! You need to shed some weight.</span>")
 
 	C.flying = !C.flying
 	update_floating()
@@ -782,8 +784,8 @@
 
 	if(!C.anchored && !C.pulledby) //Not currently anchored, and not pulled by anyone.
 		C.anchored = 1 //This is the only way to stop the inertial_drift.
-		C.nutrition -= 25
-		update_floating()
+		C.nutrition -= 15
+		start_floating() //You do the floating animation when you toggle flight but don't move. Force it here for hovering as well.
 		to_chat(C, "<span class='notice'>You hover in place.</span>")
 		spawn(6) //.6 seconds.
 			C.anchored = 0

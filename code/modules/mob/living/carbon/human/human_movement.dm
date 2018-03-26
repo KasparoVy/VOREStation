@@ -77,7 +77,7 @@
 
 	// Turf related slowdown
 	var/turf/T = get_turf(src)
-	if(T && T.movement_cost)
+	if(!flying || T && T.movement_cost) //You fly over snow, water, etc.
 		var/turf_move_cost = T.movement_cost
 		if(istype(T, /turf/simulated/floor/water))
 			if(species.water_movement)
