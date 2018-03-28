@@ -183,9 +183,13 @@
 		if(H.flying) //Some other checks are done in the wings_toggle proc
 			var/mob/living/carbon/human/M = H
 			var/mod = istype(M) ? M.get_mass_exertion_mod() : 1
-			var/nutrition_use = 1.5 * mod
+			/*	1 nutrition per passive check from the humanoid's life(), 0.75 if the mob is actively flying around.
+				If the mob is flying around, fall() is being called every tick of life() as well as with every tile moved so the value is essentially doubled.*/
+			var/nutrition_factor = H.client && H.client.moving ? (1.5 * 0.5) : 1
+			var/nutrition_use = nutrition_factor * mod
 			if(H.nutrition > nutrition_use)
 				H.nutrition -= nutrition_use //You use up this nutrition per TILE and tick of flying above open spaces. If people wanna flap their wings in the hallways, shouldn't penalize them for it.
+				world << "<span class='warning'>[H]'s nutrition is [H.nutrition]</span>"
 			if(H.incapacitated(INCAPACITATION_ALL))
 				H.stop_flying()
 				//Just here to see if the person is KO'd, stunned, etc. If so, it'll move onto can_fall.
@@ -194,7 +198,6 @@
 				H.stop_flying() //womp womp.
 			else if(H.nutrition < 300 && H.nutrition > 289) //290 would be risky, as metabolism could mess it up. Let's do 289.
 				to_chat(H, "<span class='danger'>You are starting to get fatigued... You probably have a good minute left in the air, if that. Even less if you continue to fly around! You should get to the ground soon!</span>") //Ticks are, on average, 3 seconds. So this would most likely be 90 seconds, but lets just say 60.
-				H.nutrition -= nutrition_use * 4 //Why do you burn more energy in this range? What the hell?
 				return
 			else if(H.nutrition < 100 && H.nutrition > 89)
 				to_chat(H, "<span class='danger'>You're seriously fatigued! You need to get to the ground immediately and eat before you fall!</span>")
