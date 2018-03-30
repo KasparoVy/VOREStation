@@ -183,10 +183,11 @@
 		if(H.flying) //Some other checks are done in the wings_toggle proc
 			var/mob/living/carbon/human/M = H
 			var/mod = istype(M) ? M.get_mass_exertion_mod() : 1
-			/*	1 nutrition per passive check from the humanoid's life(), 0.75 if the mob is actively flying around.
+			/*	2.5 nutrition per passive check from the humanoid's life(), 0.5 if the mob is actively flying around.
 				If the mob is flying around, fall() is being called every tick of life() as well as with every tile moved so the value is essentially doubled.*/
-			var/nutrition_factor = H.client && H.client.moving ? (1.5 * 0.5) : 1
+			var/nutrition_factor = (world.time - l_move_time < 15) ? 0.5 : 2.5
 			var/nutrition_use = nutrition_factor * mod
+			world << "using [nutrition_factor] nutrition modified to [nutrition_use] to fly"
 			if(H.nutrition > nutrition_use)
 				H.nutrition -= nutrition_use //You use up this nutrition per TILE and tick of flying above open spaces. If people wanna flap their wings in the hallways, shouldn't penalize them for it.
 				world << "<span class='warning'>[H]'s nutrition is [H.nutrition]</span>"
